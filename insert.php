@@ -1,6 +1,34 @@
 <?php
 include 'connection.php';
-var_dump($_POST);
+// var_dump($_POST);
+if (!empty($_POST)) {
+    try {
+        $pdo = openConnection();
+        $form = $_POST;
+        $sql = "INSERT INTO student ( first_name, last_name, username, gender, linkedin, github, email, preferred_language, video, quote, quote_author, created_at) 
+            VALUES ( :first_name, :last_name,  :username, :gender, :linkedin, :github, :email, :preferred_language, :video, :quote, :quote_author, :created_at)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':first_name', $form['first_name']);
+        $stmt->bindParam(':last_name', $form['last_name']);
+        $stmt->bindParam(':username', $form['username']);
+        $stmt->bindParam(':gender', $form['gender']);
+        $stmt->bindParam(':linkedin', $form['linkedin']);
+        $stmt->bindParam(':github', $form['github']);
+        $stmt->bindParam(':email', $form['email']);
+        $stmt->bindParam(':preferred_language', $form['pref_language']);
+        // $stmt->bindParam(':avatar', "");
+        $stmt->bindParam(':video', $form['musicVideo']);
+        $stmt->bindParam(':quote', $form['quote']);
+        $stmt->bindParam(':quote_author', $form['quoteAuthor']);
+        $stmt->bindParam(':created_at', $form['date']);
+
+        $stmt->execute();
+        echo '<div class="alert alert-success">User Registered</div>';
+    } catch (PDOException $e) {
+        die("error: could not execute $sql " . $e->getMessage());
+    }
+    unset($pdo);
+}
 ?>
 
 <!DOCTYPE html>
@@ -14,8 +42,11 @@ var_dump($_POST);
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 
-<body>
+<body class="bg-light">
     <div class="container">
+        <div class="bg-dark text-white text-center">
+            <h1> Register User </h1>
+        </div>
         <form method="POST">
             <div class="d-flex justify-content-between">
                 <div class="form-group d-flex flex-column">
@@ -29,20 +60,20 @@ var_dump($_POST);
                     <label>Gender</label>
                     <select name="gender" required>
                         <option value="" disabled selected hidden>Select your gender</option>
-                        <option value="female">Female</option>
-                        <option value="male">Male</option>
-                        <option value="non-Binary">Non-binary</option>
+                        <option value="Female">Female</option>
+                        <option value="Male">Male</option>
+                        <option value="Non-Binary">Non-binary</option>
                     </select>
                 </div>
                 <div class="form-group d-flex flex-column">
                     <label>Linkedin account</label>
-                    <input id="linkedin" name="linkedin" placeholder="Linkedin" value="">
+                    <input id="linkedin" name="linkedin" placeholder="Full link Linkedin" value="" required>
                     <label>GitHub account</label>
-                    <input id="github" name="github" placeholder="Github" value="">
+                    <input id="github" name="github" placeholder="Full link Github" value="" required>
                     <label>Email</label>
                     <input id="email" name="email" placeholder="Email" value="" required>
                     <label>Date of registration</label>
-                    <input id="date" name="date" type="date" value="<?php echo date('Y-m-d'); ?>" readonly required/>
+                    <input id="date" name="date" type="date" value="<?php echo date('Y-m-d'); ?>" readonly required />
                 </div>
                 <div class="form-group d-flex flex-column">
                     <!-- PREFERRED LANGUAGE HERE -->
@@ -125,17 +156,19 @@ var_dump($_POST);
                     <!-- AVATAR HERE -->
                     <!-- MUSIC VIDEO LINK HERE -->
                     <label>Favorite music video(youtube)</label>
-                    <input id="musicVideo" name="musicVideo" placeholder="Youtube link">
+                    <input id="musicVideo" name="musicVideo" placeholder="Youtube link" required>
                     <!-- QUOTE HERE -->
                     <label>Favorite Quote</label>
-                    <input id="quote" name="quote" placeholder="quote">
-                    <input id="quoteAuthor" name="quoteAuthor" placeholder="author">
+                    <input id="quote" name="quote" placeholder="quote" required>
+                    <input id="quoteAuthor" name="quoteAuthor" placeholder="author" required>
                     <!-- QUOTE AUTHOR HERE -->
                 </div>
             </div>
-            <button id="register" name="register">Register</button>
+            <div class="d-flex  justify-content-center">
+                <a href="index.php" id="return" class="m-1 btn btn-dark" name="return">Go back</a>
+                <button  id="register" class="btn btn-dark m-1" name="register">Register</button>
+            </div>
         </form>
-    </div>
     </div>
 </body>
 
