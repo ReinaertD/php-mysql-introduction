@@ -18,33 +18,36 @@ $user = $stmt->fetch();
 </head>
 
 <body class="container bg-light">
-        <div class="d-flex flex-column justify-content-center text-center bg-dark text-light">
-            <p>avatar placeholder</p>
-            <p><?php echo $user['username'] . " #" . $user['id']; ?></p>
-        </div>
-        <div class="d-flex justify-content-around" >
-            <div id="personalInfo">
-                <p><?php echo $user['first_name'] . " " . $user['last_name']; ?> </p>
-                <p><?php echo $user['gender'];  ?> </p>
-                <p><?php echo $user['created_at'];  ?> </p>
-            </div>
-            <div id="contact">
-                <p><?php echo $user['email'];  ?> </p>
-                <p><?php echo $user['github'];  ?> </p>
-                <p><?php echo $user['linkedin'];  ?> </p>
+    <div class="d-flex flex-column justify-content-center text-center bg-dark text-light">
 
-            </div>
+        <div class="text-center" style="height:8rem;width:8rem;">
+            <img class="d-block mx-auto" src="<?php echo "https://avatars.dicebear.com/v2/" . $user['gender'] . "/" . $user['first_name'] . ".svg" ?> " alt="avatar failed to load">
         </div>
-        <div class="d-flex flex-column justify-content-center text-center">
-            <div id="quote">
-                <p> <?php echo $user['quote']; ?></p>
-                <p> <?php echo $user['quote_author']; ?></p>
-            </div>
-            <div id="youtube">
-                <p> <?php echo $user['video']; ?> </p>
-            </div> 
-            <a href="index.php" class="btn btn-dark">Go Back</a>
+        <p><?php echo $user['username'] . " #" . $user['id']; ?></p>
+    </div>
+    <div class="d-flex justify-content-around">
+        <div id="personalInfo">
+            <p><?php echo $user['first_name'] . " " . $user['last_name']; ?> </p>
+            <p><?php echo $user['gender'];  ?> </p>
+            <p><?php echo $user['created_at'];  ?> </p>
         </div>
+        <div id="contact">
+            <p><?php echo $user['email'];  ?> </p>
+            <p><?php echo $user['github'];  ?> </p>
+            <p><?php echo $user['linkedin'];  ?> </p>
+
+        </div>
+    </div>
+    <div class="d-flex flex-column justify-content-center text-center">
+        <div id="quote">
+            <p> <?php echo $user['quote']; ?></p>
+            <p> <?php echo $user['quote_author']; ?></p>
+        </div>
+        <div id="youtube">
+            <p> <?php echo $user['video']; ?> </p>
+        </div>
+        <a href="index.php" class="btn btn-dark">Go Back</a>
+    </div>
 
 </body>
 
