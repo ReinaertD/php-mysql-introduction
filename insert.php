@@ -1,52 +1,6 @@
 <?php
-
-require 'connection.php';
-try {
-    $pdo = new PDO('mysql:host=localhost;dbname=becode;charset=utf8mb4', 'becode_user', 'StrongPassword');
-} catch (\PDOException $e) {
-    throw new \PDOException($e->getMessage(), (int) $e->getCode());
-}
-$statement = $pdo->query("SELECT student");
-// var_dump($row);
-
+include 'connection.php';
 var_dump($_POST);
-
-$sql = "INSERT INTO `student` (id, firstName, lastName, username, gender, linkedin, github, email, language, avatar, musicVideo, quote, quoteAuthor, created_at)
-                                        VALUES (:id, :first_name, :last_name), :username, :gender, :linkedin, :github, :email, :preferred_language, :avatar, :video, :quote, :quote_author, :created_at";
-$form = $_POST;
-$stmt = $pdo->prepare($sql);
-$stmt->bindParam(":firstName",$firstName);
-$stmt->bindParam(":lastName",$lastName);
-$stmt->bindParam(":username",$username);
-$stmt->bindParam(":gender",$gender);
-$stmt->bindParam(":linkedin",$linkedin);
-$stmt->bindParam(":github",$github);
-$stmt->bindParam(":email",$email);
-$stmt->bindParam(":preferred_language",$language);
-$stmt->bindParam(":avatar",$avatar);
-$stmt->bindParam(":video",$musicVideo);
-$stmt->bindParam(":quote",$quote);
-$stmt->bindParam(":quote_author",$quoteAuthor);
-$stmt->bindParam(":created_at",$created_at);
-
-$form = $_POST;
-$firstName = $form['first_name'];
-$lastName = $form['last_name'];
-$username = $form['username'];
-$gender = $form['gender'];
-$linkedin = $form['linkedin'];
-$github = $form['github'];
-$email = $form['email'];
-$date = $form['date'];
-$language = $form['language'];
-$musicVideo = $form['musicVideo'];
-$quote = $form['quote'];
-$quoteAuthor = $form['quoteAuthor'];
-$created_at = $form['date'];
-
-$stmt->execute();
-
-
 ?>
 
 <!DOCTYPE html>
@@ -88,12 +42,12 @@ $stmt->execute();
                     <label>Email</label>
                     <input id="email" name="email" placeholder="Email" value="" required>
                     <label>Date of registration</label>
-                    <input id="date" name="date" type="date" value="<?php echo date('Y-m-d'); ?>" disabled required/>
+                    <input id="date" name="date" type="date" value="<?php echo date('Y-m-d'); ?>" readonly required/>
                 </div>
                 <div class="form-group d-flex flex-column">
                     <!-- PREFERRED LANGUAGE HERE -->
                     <label>Preferred language</label>
-                    <select name="language" required>
+                    <select name="pref_language" required>
                         <option value="" disabled selected hidden>Select your language</option>
                         <option value="AF">Afrikanns</option>
                         <option value="SQ">Albanian</option>
@@ -179,7 +133,7 @@ $stmt->execute();
                     <!-- QUOTE AUTHOR HERE -->
                 </div>
             </div>
-            <button>Register</button>
+            <button id="register" name="register">Register</button>
         </form>
     </div>
     </div>
