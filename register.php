@@ -1,16 +1,40 @@
 <?php
 include 'connection.php';
 // var_dump($_POST);
-if (!empty($_POST)) {
+   
+    var_dump($_POST);
+    $first_name = $last_name = $username = $linkedin = $github = $email = $video = $quote = $quote_author = "";
+
+
+
+if (!empty($_POST)) { 
+    $first_name = $_POST['first_name'];
+    $last_name = $_POST['last_name'];
+    $username = $_POST['username'];
+    $linkedin = $_POST['linkedin'];
+    $github = $_POST['github'];
+    $email = $_POST['email'];
+    $video = $_POST['musicVideo'];
+    $quote = $_POST['quote'];
+    $quote_author = $_POST['quoteAuthor'];
+    if (comparePassword() === true) {
+        storeUser();
+    } else echo '<div class="alert alert-danger"> Passwords are not the same! </div>';
+}
+
+function storeUser()
+{
     try {
         $pdo = openConnection();
         $form = $_POST;
-        $sql = "INSERT INTO student ( first_name, last_name, username, gender, linkedin, github, email, preferred_language, video, quote, quote_author, created_at) 
-            VALUES ( :first_name, :last_name,  :username, :gender, :linkedin, :github, :email, :preferred_language, :video, :quote, :quote_author, :created_at)";
+        $sql = "INSERT INTO student ( first_name, last_name, username, password, gender, linkedin, github, email, preferred_language, video, quote, quote_author, created_at) 
+            VALUES ( :first_name, :last_name,  :username, :password, :gender, :linkedin, :github, :email, :preferred_language, :video, :quote, :quote_author, :created_at)";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':first_name', $form['first_name']);
         $stmt->bindParam(':last_name', $form['last_name']);
         $stmt->bindParam(':username', $form['username']);
+        $encryptPassword = password_hash($form['password'], PASSWORD_DEFAULT);
+        $stmt->bindParam(':password', $encryptPassword);
         $stmt->bindParam(':gender', $form['gender']);
         $stmt->bindParam(':linkedin', $form['linkedin']);
         $stmt->bindParam(':github', $form['github']);
@@ -29,6 +53,18 @@ if (!empty($_POST)) {
     }
     unset($pdo);
 }
+
+function comparePassword()
+{
+    $password = $_POST['password'];
+    $password_validate = $_POST['password_validator'];
+
+    if ($password === $password_validate) {
+        return true;
+    } else
+        return false;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -50,12 +86,21 @@ if (!empty($_POST)) {
         <form method="POST">
             <div class="d-flex justify-content-between">
                 <div class="form-group d-flex flex-column">
-                    <label>First name</label>
-                    <input id="firstName" name="first_name" placeholder="First name" value="" required>
-                    <label>Last name</label>
-                    <input id="lastName" name="last_name" placeholder="Last name" value="" required>
                     <label>Username</label>
-                    <input id="username" name="username" placeholder="Username" value="" required>
+                    <input id="username" name="username" placeholder="Username" value="<?php echo $username ?>" required>
+                    <label>Password</label>
+                    <input id="password" name="password" placeholder="Password" value="" required>
+                    <label>Re-enter password</label>
+                    <input id="password_validator" name="password_validator" placeholder="Password" value="" required>
+
+
+                </div>
+                <div class="form-group d-flex flex-column">
+                    <label>First name</label>
+                    <input id="firstName" name="first_name" placeholder="First name" value="<?php echo $first_name ?>" required>
+                    <label>Last name</label>
+                    <input id="lastName" name="last_name" placeholder="Last name" value="<?php echo $last_name ?>" required>
+
                     <!-- GENDER HERE -->
                     <label>Gender</label>
                     <select name="gender" required>
@@ -65,13 +110,14 @@ if (!empty($_POST)) {
                         <option value="Non-Binary">Non-binary</option>
                     </select>
                 </div>
+
                 <div class="form-group d-flex flex-column">
                     <label>Linkedin account</label>
-                    <input id="linkedin" name="linkedin" placeholder="Full link Linkedin" value="" required>
+                    <input id="linkedin" name="linkedin" placeholder="Full link Linkedin" value="<?php echo $linkedin ?>" required>
                     <label>GitHub account</label>
-                    <input id="github" name="github" placeholder="Full link Github" value="" required>
+                    <input id="github" name="github" placeholder="Full link Github" value="<?php echo $github ?>" required>
                     <label>Email</label>
-                    <input id="email" name="email" placeholder="Email" value="" required>
+                    <input id="email" name="email" placeholder="Email" value="<?php echo $email ?>" required>
                     <label>Date of registration</label>
                     <input id="date" name="date" type="date" value="<?php echo date('Y-m-d'); ?>" readonly required />
                 </div>
@@ -156,17 +202,17 @@ if (!empty($_POST)) {
                     <!-- AVATAR HERE -->
                     <!-- MUSIC VIDEO LINK HERE -->
                     <label>Favorite music video(youtube)</label>
-                    <input id="musicVideo" name="musicVideo" placeholder="Youtube link" required>
+                    <input id="musicVideo" name="musicVideo" placeholder="Youtube link" value="<?php echo $video ?>" required>
                     <!-- QUOTE HERE -->
                     <label>Favorite Quote</label>
-                    <input id="quote" name="quote" placeholder="quote" required>
-                    <input id="quoteAuthor" name="quoteAuthor" placeholder="author" required>
+                    <input id="quote" name="quote" placeholder="quote" value="<?php echo $quote ?>" required>
+                    <input id="quoteAuthor" name="quoteAuthor" placeholder="author" value="<?php echo $quote_author ?>" required>
                     <!-- QUOTE AUTHOR HERE -->
                 </div>
             </div>
             <div class="d-flex  justify-content-center">
                 <a href="index.php" id="return" class="m-1 btn btn-dark" name="return">Go back</a>
-                <button  id="register" class="btn btn-dark m-1" name="register">Register</button>
+                <button id="register" class="btn btn-dark m-1" name="register">Register</button>
             </div>
         </form>
     </div>

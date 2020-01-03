@@ -1,0 +1,14 @@
+#login{
+    width: 20rem;
+    height: 10rem;
+    position: absolute;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+  	
+	margin: auto;
+}
+h1{
+    color:white;
+}

@@ -40,7 +40,7 @@ $stmt = $pdo->query("SELECT * FROM student")->fetchAll();
             ?>
         </table>
         <div class="d-flex justify-content-end">
-            <a class="btn btn-dark" href="insert.php">Register User</a>
+            <a class="btn btn-dark" href="register.php">Register new user</a>
         </div>
     </div>
 </body>
