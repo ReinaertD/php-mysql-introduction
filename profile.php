@@ -1,5 +1,5 @@
 <?php
-require 'connection.php';
+require 'Model/connection.php';
 $pdo = openConnection();
 $stmt = $pdo->prepare("SELECT * FROM student WHERE id=:id");
 $stmt->execute(['id' => $_REQUEST['id']]);

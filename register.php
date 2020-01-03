@@ -1,5 +1,5 @@
 <?php
-include 'connection.php';
+include 'Model/connection.php';
 // var_dump($_POST);
    
     var_dump($_POST);

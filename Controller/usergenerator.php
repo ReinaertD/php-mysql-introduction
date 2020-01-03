@@ -1,6 +1,6 @@
 <?php
 // needs link to connection AND a working openConnection() function
-include 'connection.php';
+include 'Model/connection.php';
 // executes 
 generateUsers();
 

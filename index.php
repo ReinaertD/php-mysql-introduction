@@ -1,8 +1,12 @@
 <?php
-require 'connection.php';
+require 'Model/connection.php';
+if(isset($_POST['logout'])){
+    logOut();
+}
 $pdo = openConnection();
 $stmt = $pdo->query("SELECT * FROM student")->fetchAll();
-
+var_dump($_COOKIE);
+var_dump($_POST);
 ?>
 
 <!DOCTYPE html>
@@ -39,9 +43,10 @@ $stmt = $pdo->query("SELECT * FROM student")->fetchAll();
             }
             ?>
         </table>
-        <div class="d-flex justify-content-end">
-            <a class="btn btn-dark" href="register.php">Register new user</a>
-        </div>
+        <form method="POST" class="d-flex justify-content-end">
+            <button class="btn btn-dark" href="register.php">Register new user</button>
+            <button name="logout" class="btn btn-dark">Logout</button>
+        </form>
     </div>
 </body>
 
