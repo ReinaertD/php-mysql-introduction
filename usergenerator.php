@@ -1,10 +1,12 @@
 <?php
-
+// needs link to connection AND a working openConnection() function
 include 'connection.php';
+// executes 
 generateUsers();
 
 function generateUsers()
 {
+    // Edit this info to make different random variables
     $first_name = array("Geert", "Reinaert", "Sander", "Stijn", "Cath", "Claas", "David", "Jan", "Kristel", "Moumita", "Naoyuki", "Tibo", "Welid", "Adel", "Aline", "Crisse", "Danny", "Thijs", "Kevin", "Erin", "Jasper", "Jeroen", "Kasra", "Lisa", "Myle", "Nathalie", "Rico", "Shadia", "Steven", "Tabitha");
     $last_name = array("Uyttendael", "Geeraerts", "Seeuws", "Depourcq", "Coleman", "Mulemaster", "Steigschmetterling", "The Clerk", "Von Mile Gem", "Basak", "Arakawa", "Labidi", "Lallaloui", "Longnose", "Sotto", "Joosen Louise-Hartley", "Springer", "De Schoenveter", "Tabrizionales", "Cant", "Truong", "Pillpopper", "Hangkok", "Nasman", "Notens", "Bidee");
     $username = array("Gerald", "Riri", "Hackerman", "Nicet", "Catwoman", "Claazinator", "Dayvid", "Wizardio Janus", "Crystal", "Moun", "NaoTheNoa", "Tibalt", "Welder", "Van Blauw Bloed", "Alien", "CriCri", "Danners", "Thijs Off My Laptop", "KayKay", "Fucking Kiwi", "Jpop Ping", "JRoen", "GangKastra", "Shmisa", "Milli", "Funky Nathalie", "Surfboi", "Shady Ia", "Steven Jordan", "Tabi");
@@ -21,7 +23,9 @@ function generateUsers()
 
 // The for loop will make 50 users
     for ($i = 0; $i < 50; $i++) {
+        // Opens connection
         $pdo = openConnection();
+        // Chooses randoms from the array
         $fname = randomGen($first_name);
         $lname = randomGen($last_name);
         $uname = randomGen($username);
@@ -57,7 +61,7 @@ function generateUsers()
         unset($pdo);
     }
 }
-
+//function which gets a random from the array
 function randomGen($array)
 {
     $random = rand(0, count($array)-1);
