@@ -33,7 +33,7 @@ function generateUsers()
         $pwd = randomGen($password);
         $linked = randomGen($linkedin);
         $git = randomGen($github);
-        $mail = randomGen($email);
+        $mail = $fname . randomGen($email);
         $lang = randomGen($pref_language);
         $vid = randomGen($music_video);
         $quo = randomGen($quote);
