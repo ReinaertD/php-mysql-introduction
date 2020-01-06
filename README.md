@@ -1,9 +1,10 @@
-# PHP - MariaDB introduction
+# PHP - MariaDB assignment
 
 ## About 
 The point of the project is to learn how to use databases and connect them with a site.
 When you login you will see a list of all the users and you should be able to check each profile.
 You will also be able to edit your own personal information.
+I use bootstrap so I can focus on the actual programming.
 
 ## TODO
 1. Edit your own profile
