@@ -43,7 +43,7 @@ if (isset($_POST['login'])) {
     <form id="login" method="post" class="d-flex justify-content-center">
         <div class="form-group d-flex flex-column justify-content-between">
             <input name="username" placeholder="username" <?php loggedIn("disable"); ?>>
-            <input name="password" placeholder="password" <?php loggedIn("disable"); ?>>
+            <input type="password" name="password" placeholder="password" <?php loggedIn("disable"); ?>>
             <div class="d-flex justify-content-around ">
                 <button name="login" class="btn btn-dark" <?php loggedIn("disable"); ?>>Login</button>
                 <button name="create" class="btn btn-dark" <?php loggedIn("disable"); ?>>Register</button>

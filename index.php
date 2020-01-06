@@ -44,7 +44,6 @@ var_dump($_POST);
             ?>
         </table>
         <form method="POST" class="d-flex justify-content-end">
-            <button class="btn btn-dark" href="register.php">Register new user</button>
             <button name="logout" class="btn btn-dark">Logout</button>
         </form>
     </div>

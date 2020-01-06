@@ -19,6 +19,8 @@ if (!empty($_POST)) {
     $quote_author = $_POST['quoteAuthor'];
     if (comparePassword() === true) {
         storeUser();
+        header("Location: login.php");
+        exit;
     } else echo '<div class="alert alert-danger"> Passwords are not the same! </div>';
 }
 
@@ -89,9 +91,9 @@ function comparePassword()
                     <label>Username</label>
                     <input id="username" name="username" placeholder="Username" value="<?php echo $username ?>" required>
                     <label>Password</label>
-                    <input id="password" name="password" placeholder="Password" value="" required>
+                    <input type="password" id="password" name="password" placeholder="Password" value="" required>
                     <label>Re-enter password</label>
-                    <input id="password_validator" name="password_validator" placeholder="Password" value="" required>
+                    <input type="password" id="password_validator" name="password_validator" placeholder="Password" value="" required>
 
 
                 </div>
